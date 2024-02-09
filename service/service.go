@@ -97,7 +97,7 @@ func (product *ProductService) GetProduct(ctx context.Context, req *pb.GetProduc
 	}, nil
 }
 
-func (product *ProductService) UpdateStock(ctx context.Context, req *pb.UpdateQuantityRequest) (*pb.AddProductResponse, error) {
+func (product *ProductService) UpdateQuantity(ctx context.Context, req *pb.UpdateQuantityRequest) (*pb.AddProductResponse, error) {
 
 	span := Tracer.StartSpan("update stock of product grpc")
 	defer span.Finish()

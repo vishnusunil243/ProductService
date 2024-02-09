@@ -39,7 +39,7 @@ func (product *ProductAdapter) GetProduct(id uint) (entities.Product, error) {
 }
 func (product ProductAdapter) IncrementQuantity(id uint, quantity int) (entities.Product, error) {
 	var res entities.Product
-	query := `UPDATE products SET quantity=$1 WHERE id=$2`
+	query := `UPDATE products SET quantity=quantity+$1 WHERE id=$2 RETURNING id,name,quantity,price`
 	if err := product.DB.Raw(query, quantity, id).Scan(&res).Error; err != nil {
 		return entities.Product{}, err
 	}
@@ -47,7 +47,7 @@ func (product ProductAdapter) IncrementQuantity(id uint, quantity int) (entities
 }
 func (product ProductAdapter) DecrementQuantity(id uint, quantity int) (entities.Product, error) {
 	var res entities.Product
-	query := `UPDATE products SET quantity=quantity-$1 WHERE id=$2`
+	query := `UPDATE products SET quantity=quantity-$1 WHERE id=$2 RETURNING id,name,quantity,price`
 	tx := product.DB.Begin()
 	defer func() {
 		if r := recover(); r != nil {

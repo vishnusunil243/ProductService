@@ -30,7 +30,7 @@ func RegisterService() {
 		Check: &consulapi.AgentServiceCheck{
 			GRPC:                           fmt.Sprintf("%s:%d/%s", addr, port, serviceId),
 			Interval:                       "10s",
-			DeregisterCriticalServiceAfter: "10m",
+			DeregisterCriticalServiceAfter: "1m",
 		},
 	}
 	log.Printf(fmt.Sprintf("%s:%d/%s", addr, port, serviceId))
